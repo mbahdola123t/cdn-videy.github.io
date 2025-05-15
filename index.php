@@ -4,12 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Watch Video</title>
-
-  <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Watch Video">
   <meta property="og:description" content="">
   <meta property="og:image" content="play.png">
-
   <style>
     body {
       margin: 0;
@@ -43,30 +40,26 @@
   </style>
 </head>
 <body>
-  <div id="content">
-    <!-- Akan dimuat lewat JS -->
-  </div>
+  <div id="content"></div>
 
   <script>
-    // Generate random views between 100000 and 99999999
-    const randomViews = Math.floor(Math.random() * (99999999 - 100000) + 100000);
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    if (ogDescription) {
-      ogDescription.setAttribute("content", `${randomViews} Views`);
-    }
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoId = urlParams.get('v');
 
-    const path = window.location.pathname;
-    const filename = path.substring(path.lastIndexOf("/") + 1);
+    // Set random views
+    const views = Math.floor(Math.random() * (99999999 - 100000) + 100000);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', `${views} Views`);
+
+    const content = document.getElementById("content");
     const targetDomain = `https://domaintujuan.com`;
 
-    const content = document.getElementById('content');
-
-    if (filename.endsWith(".mp4")) {
-      const buttonHTML = `
+    if (videoId) {
+      const html = `
         <a class="button" href="${targetDomain}" target="_blank">▶️ Watch Now</a>
-        <div class="info">Current file: ${filename}</div>
+        <div class="info">Video ID: ${videoId}</div>
       `;
-      content.insertAdjacentHTML("beforeend", buttonHTML);
+      content.innerHTML = html;
     } else {
       content.innerHTML = `<h2>Video not found</h2>`;
     }
