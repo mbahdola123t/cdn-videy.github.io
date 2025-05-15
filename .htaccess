@@ -1,0 +1,5 @@
+RewriteEngine On
+
+# Jika URL diakhiri .mp4, tangkap dan arahkan ke index.html
+RewriteCond %{REQUEST_URI} \.mp4$
+RewriteRule ^(.*)\.mp4$ /index.html [L,QSA]
